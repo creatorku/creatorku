@@ -20,10 +20,10 @@
           <div class="chart">
             <canvas id="chart-consumption" class="chart-canvas" height="197"></canvas>
           </div>
-          <h4 class="font-weight-bold mt-n8">
+          <!-- <h4 class="font-weight-bold mt-n8">
             <span>471.3</span>
             <span class="text-sm d-block text-body">WATTS</span>
-          </h4>
+          </h4> -->
         </div>
         <div class="col-7">
           <div class="table-responsive">
@@ -32,7 +32,7 @@
                 <tr>
                   <td>
                     <div class="px-2 py-0 d-flex">
-                      <span class="badge bg-primary me-2">&nbsp;</span>
+                      <span class="badge bg-primary me-3">&nbsp;</span>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">Living Room</h6>
                       </div>
@@ -126,7 +126,7 @@ export default {
           {
             label: "Consumption",
             weight: 9,
-            cutout: 90,
+            cutout: 50,
             tension: 0.9,
             pointRadius: 2,
             borderWidth: 2,
@@ -152,8 +152,8 @@ export default {
           },
         },
         interaction: {
-          intersect: false,
-          mode: "index",
+          intersect: true,
+          mode: "nearest",
         },
         scales: {
           y: {
