@@ -1,24 +1,24 @@
 <template>
-  <div class="mb-4 card">
+  <div :class="`mb-4 card ${customBgColor}`">
     <div class="p-3 card-body">
       <div class="d-flex" :class="directionReverse ? reverseDirection : ''">
-        <div>
+        <!-- <div>
           <div class="text-center icon icon-shape"
            :class="`${iconBackground} ${this.$store.state.isRTL ? 'border-radius-md' : 'border-radius-2xl'}`">
             <i class="text-lg opacity-10" :class="iconClass" aria-hidden="true"></i>
           </div>
-        </div>
-        <div :class="contentClass">
+        </div> -->
+        <div :class="`${contentClass} ${customTextColor}`">
           <div class="numbers" v-if="this.$store.state.isRTL">
-            <p class="mb-0 text-sm text-uppercase font-weight-bold" :class="titleColor">{{ title }}</p>
-            <h5 class="font-weight-bolder" :class="valueColor">{{ value }}
+            <p class="mb-0 text-sm text-uppercase font-weight-bold">{{ title }}</p>
+            <h5 class="font-weight-bolder">{{ value }}
             <span class="text-sm"  :class="percentageColor">{{ percentage }}</span> 
             <span class="font-weight-light text-sm"> {{detail}}</span>
             </h5>
           </div>
           <div class="numbers" v-else>
-            <p class="mb-0 text-sm text-uppercase font-weight-bold" :class="titleColor">{{ title }}</p>
-            <h5 class="font-weight-bolder" :class="valueColor">{{ value }}</h5>
+            <p class="mb-0 text-sm text-uppercase font-weight-bold">{{ title }}</p>
+            <h5 :class="`font-weight-bolder ${customTextColor}`">{{ value }}</h5>
             <span class="text-sm"  :class="percentageColor">{{ percentage }}</span> 
             {{detail}}
           </div>
@@ -71,6 +71,14 @@ export default {
     contentClass: {
       type: String,
     },
+    customBgColor: {
+      type: String,
+      default: 'bg-white'
+    },
+    customTextColor: {
+      type: String,
+      default: ''
+    }
   },
 };
 </script>

@@ -18,7 +18,7 @@
       <div class="row">
         <div class="text-center col-5">
           <div class="chart">
-            <canvas id="chart-consumption" class="chart-canvas" height="197"></canvas>
+            <canvas :id="chartId" class="chart-canvas" height="197"></canvas>
           </div>
           <!-- <h4 class="font-weight-bold mt-n8">
             <span>471.3</span>
@@ -108,9 +108,15 @@ import Chart from "chart.js/auto";
 
 export default {
   name: "consumption-by-room-chart",
+  props: {
+    chartId: {
+      type: String,
+      default: 'chart-doughnut'
+    }
+  },
   mounted() {
     // Chart Doughnut Consumption by room
-    var ctx1 = document.getElementById("chart-consumption").getContext("2d");
+    var ctx1 = document.getElementById(this.chartId).getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 

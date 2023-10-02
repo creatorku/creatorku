@@ -8,9 +8,9 @@
         {{detail2}}
       </p>
     </div>
-    <div class="p-3 card-body">
+    <div class="p-0 card-body">
       <div class="chart">
-        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+        <canvas :id="chartId" class="chart-canvas" height="300"></canvas>
       </div>
     </div>
   </div>
@@ -35,10 +35,14 @@ export default {
       type: String,
       default: "in 2021",
     },
+    chartId: {
+      type: String,
+      default: 'chart-line'
+    }
   },
 
   mounted() {
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
+    var ctx1 = document.getElementById(this.chartId).getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 

@@ -2,65 +2,161 @@
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.money.title"
-              :value="stats.money.value"
-              :percentage="stats.money.percentage"
-              :iconClass="stats.money.iconClass"
-              :iconBackground="stats.money.iconBackground"
-              :detail="stats.money.detail"
-              directionReverse
-            ></card>
+        <div class="row mb-3">
+          <div class="col-12 col-md-4 mb-4 mb-md-0">
+            <profile-card class="sticky-top top-3" />
           </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.users.title"
-              :value="stats.users.value"
-              :percentage="stats.users.percentage"
-              :iconClass="stats.users.iconClass"
-              :iconBackground="stats.users.iconBackground"
-              :detail="stats.users.detail"
-              directionReverse
-            ></card>
-          </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.clients.title"
-              :value="stats.clients.value"
-              :percentage="stats.clients.percentage"
-              :iconClass="stats.clients.iconClass"
-              :iconBackground="stats.clients.iconBackground"
-              :percentageColor="stats.clients.percentageColor"
-              :detail="stats.clients.detail"
-              directionReverse
-            ></card>
-          </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.sales.title"
-              :value="stats.sales.value"
-              :percentage="stats.sales.percentage"
-              :iconClass="stats.sales.iconClass"
-              :iconBackground="stats.sales.iconBackground"
-              :detail="stats.sales.detail"
-              directionReverse
-            ></card>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-7 mb-lg">
-            <!-- line chart -->
-            <div class="card z-index-2">
-              <gradient-line-chart />
+          <div class="col-12 col-md-8">
+            <div id="instagram-card" class="card mb-4">
+              <div class="card-body">
+                <div class="w-100">
+                  <h4 class="d-flex align-items-center fs-5">
+                    <span class="me-2">
+                      <i class="fab fa-instagram"></i>
+                    </span>
+                    Instagram
+                  </h4>
+                  <div class="row">
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Followers"
+                        value="22,000"
+                        :percentage="stats.money.percentage"
+                        :detail="stats.money.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Profile Views"
+                        value="220"
+                        :percentage="stats.users.percentage"
+                        :detail="stats.users.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Impressions"
+                        value="22"
+                        :percentage="stats.clients.percentage"
+                        :percentageColor="stats.clients.percentageColor"
+                        :detail="stats.clients.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Avg Engagement Rate"
+                        value="22%"
+                        :percentage="stats.sales.percentage"
+                        :detail="stats.sales.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-12">
+                      <div class="card z-index-2">
+                        <gradient-line-chart chart-id="ig-chart-line" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card z-index-2">
+                        <consumption-room-chart chart-id="ig-chart-donut" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card z-index-2">
+                        <categories-card />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="youtube-card" class="card">
+              <div class="card-body">
+                <div class="w-100">
+                  <h4 class="d-flex align-items-center fs-5">
+                    <span class="me-2">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    Youtube
+                  </h4>
+                  <div class="row">
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Followers"
+                        value="22,000"
+                        :percentage="stats.money.percentage"
+                        :detail="stats.money.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Profile Views"
+                        value="220"
+                        :percentage="stats.users.percentage"
+                        :detail="stats.users.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Impressions"
+                        value="22"
+                        :percentage="stats.clients.percentage"
+                        :percentageColor="stats.clients.percentageColor"
+                        :detail="stats.clients.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                      <card
+                        title="Avg Engagement Rate"
+                        value="22%"
+                        :percentage="stats.sales.percentage"
+                        :detail="stats.sales.detail"
+                        custom-bg-color="bg-primary"
+                        custom-text-color="text-white"
+                      ></card>
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-12">
+                      <div class="card z-index-2">
+                        <gradient-line-chart chart-id="yt-chart-line" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card z-index-2">
+                        <consumption-room-chart chart-id="yt-chart-donut" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-lg-5">
-            <!-- <carousel /> -->
-          </div>
         </div>
-        <div class="row mt-4">
+        
+        <!-- <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card">
               <div class="p-3 pb-0 card-header">
@@ -110,7 +206,7 @@
           <div class="col-lg-5">
             <categories-card />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -118,8 +214,11 @@
 <script>
 import Card from "@/examples/Cards/Card.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
+import ConsumptionRoomChart from "@/examples/Charts/ConsumptionRoomChart.vue";
+// import ConsumptionDayChart from "@/examples/Charts/ConsumptionDayChart.vue";
 // import Carousel from "./components/Carousel.vue";
 import CategoriesCard from "./components/CategoriesCard.vue";
+import ProfileCard from "@/views/components/ProfileCard.vue";
 
 import US from "@/assets/img/icons/flags/US.png";
 import DE from "@/assets/img/icons/flags/DE.png";
@@ -201,6 +300,9 @@ export default {
     Card,
     GradientLineChart,
     CategoriesCard,
+    ProfileCard,
+    ConsumptionRoomChart,
+    // ConsumptionDayChart
   },
 };
 </script>
