@@ -4,13 +4,34 @@
       <div class="col-lg-12">
         <div class="row mb-3">
           <div class="col-12 col-md-4 mb-4 mb-md-0">
-            <profile-card class="sticky-top top-3" />
+            <div class="sticky-top top-3">
+              <profile-card class="mb-3" />
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="fs-6">
+                    Connect your account
+                  </h5>
+                  <div class="d-flex align-items-center flex-wrap gap-2">
+                    <button @click="connectFacebook" id="ig-btn" class="btn btn-icon-only btn-danger mb-0">
+                      <span>
+                        <i class="fab fa-instagram"></i>
+                      </span>
+                    </button>
+                    <a href="#" class="btn btn-icon-only btn-danger mb-0">
+                      <span>
+                        <i class="fab fa-youtube"></i>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-12 col-md-8">
             <div id="instagram-card" class="card mb-4">
               <div class="card-body">
                 <div class="w-100">
-                  <h4 class="d-flex align-items-center fs-5">
+                  <h4 class="d-flex align-items-center fs-5 mb-3">
                     <span class="me-2">
                       <i class="fab fa-instagram"></i>
                     </span>
@@ -73,13 +94,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="card z-index-2">
-                        <categories-card />
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -87,7 +101,7 @@
             <div id="youtube-card" class="card">
               <div class="card-body">
                 <div class="w-100">
-                  <h4 class="d-flex align-items-center fs-5">
+                  <h4 class="d-flex align-items-center fs-5 mb-3">
                     <span class="me-2">
                       <i class="fab fa-youtube"></i>
                     </span>
@@ -217,13 +231,15 @@ import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
 import ConsumptionRoomChart from "@/examples/Charts/ConsumptionRoomChart.vue";
 // import ConsumptionDayChart from "@/examples/Charts/ConsumptionDayChart.vue";
 // import Carousel from "./components/Carousel.vue";
-import CategoriesCard from "./components/CategoriesCard.vue";
+// import CategoriesCard from "./components/CategoriesCard.vue";
 import ProfileCard from "@/views/components/ProfileCard.vue";
 
 import US from "@/assets/img/icons/flags/US.png";
 import DE from "@/assets/img/icons/flags/DE.png";
 import GB from "@/assets/img/icons/flags/GB.png";
 import BR from "@/assets/img/icons/flags/BR.png";
+
+import { facebookLogin } from "@/assets/js/loginHelper.js";
 
 export default {
   name: "dashboard-default",
@@ -299,10 +315,18 @@ export default {
   components: {
     Card,
     GradientLineChart,
-    CategoriesCard,
+    // CategoriesCard,
     ProfileCard,
     ConsumptionRoomChart,
     // ConsumptionDayChart
   },
+  methods: {
+    getFBLoginStatus() {
+      facebookLogin.getLoginStatus();
+    },
+    connectFacebook() {
+      facebookLogin.login();
+    }
+  }
 };
 </script>

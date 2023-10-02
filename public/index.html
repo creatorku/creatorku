@@ -39,6 +39,26 @@ Coded by www.creative-tim.com
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
   <body class="bg-gray-100">
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '264235776552401',
+          cookie: true,
+          xfbml: true,
+          version: 'v18.0',
+          localStorage: true,
+          status: true
+        });
+      };
+
+      window.onload = () => {
+        FB.Event.subscribe('auth.statusChange', function (response) {
+          console.log(response, 'auth.statusChange');
+        })
+      }
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
     <noscript>
       <strong
         >We're sorry but Vue Argon Dashboard 2 doesn't work properly without
