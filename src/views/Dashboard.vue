@@ -12,16 +12,36 @@
                     Connect your account
                   </h5>
                   <div class="d-flex align-items-center flex-wrap gap-2">
-                    <button @click="connectFacebook" id="ig-btn" class="btn btn-icon-only btn-danger mb-0">
-                      <span>
-                        <i class="fab fa-instagram"></i>
-                      </span>
-                    </button>
-                    <a href="#" class="btn btn-icon-only btn-danger mb-0">
+                    <div class="dropdown">
+                      <button data-bs-toggle="dropdown" aria-expanded="false" id="ig-btn" class="btn btn-icon-only btn-danger mb-0">
+                        <span>
+                          <i class="fab fa-instagram"></i>
+                        </span>
+                      </button>
+                      <ul class="dropdown-menu border border-secondary">
+                        <template v-if="facebookAccount">
+                          <li>
+                            <h6 class="dropdown-header" style="-webkit-line-clamp: 1;">
+                              Account Name
+                            </h6>
+                          </li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li>
+                            <button @click="logoutFacebook" href="#" class="dropdown-item">Disconnect</button>
+                          </li>
+                        </template>
+                        <template v-else>
+                          <li>
+                            <button @click="connectFacebook" class="dropdown-item">Connect Account</button>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                    <button @click="logoutFacebook" id="yt-btn" href="#" class="btn btn-icon-only btn-danger mb-0">
                       <span>
                         <i class="fab fa-youtube"></i>
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -31,69 +51,110 @@
             <div id="instagram-card" class="card mb-4">
               <div class="card-body">
                 <div class="w-100">
-                  <h4 class="d-flex align-items-center fs-5 mb-3">
-                    <span class="me-2">
-                      <i class="fab fa-instagram"></i>
-                    </span>
-                    Instagram
+                  <h4 class="d-flex align-items-center justify-content-between fs-5 mb-3">
+                    <div>
+                      <span class="me-2">
+                        <i class="fab fa-instagram"></i>
+                      </span>
+                      Instagram
+                    </div>
+                    <div class="dropdown" v-if="facebookAccount && instagramAccount">
+                      <span data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </span>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                          <div class="dropdown-header d-flex align-items-center">
+                            <img 
+                              :src="instagramAccount.profile_picture_url" 
+                              alt="IG Profile Picture"
+                              width="30"
+                              height="30"
+                              class="rounded-circle me-2"
+                            >
+                            <h6 class="mb-0 text-sm" style="-webkit-line-clamp: 1;">
+                              {{ instagramAccount.username }}
+                            </h6>
+                          </div>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <button @click="logoutFacebook" href="#" class="dropdown-item">Disconnect</button>
+                        </li>
+                      </ul>
+                    </div>
                   </h4>
-                  <div class="row">
-                    <div class="col-xl-3 col-md-6 col-12">
-                      <card
-                        title="Followers"
-                        value="22,000"
-                        :percentage="stats.money.percentage"
-                        :detail="stats.money.detail"
-                        custom-bg-color="bg-primary"
-                        custom-text-color="text-white"
-                      ></card>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-12">
-                      <card
-                        title="Profile Views"
-                        value="220"
-                        :percentage="stats.users.percentage"
-                        :detail="stats.users.detail"
-                        custom-bg-color="bg-primary"
-                        custom-text-color="text-white"
-                      ></card>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-12">
-                      <card
-                        title="Impressions"
-                        value="22"
-                        :percentage="stats.clients.percentage"
-                        :percentageColor="stats.clients.percentageColor"
-                        :detail="stats.clients.detail"
-                        custom-bg-color="bg-primary"
-                        custom-text-color="text-white"
-                      ></card>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-12">
-                      <card
-                        title="Avg Engagement Rate"
-                        value="22%"
-                        :percentage="stats.sales.percentage"
-                        :detail="stats.sales.detail"
-                        custom-bg-color="bg-primary"
-                        custom-text-color="text-white"
-                      ></card>
-                    </div>
-                  </div>
-                  <div class="row mb-4">
-                    <div class="col-12">
-                      <div class="card z-index-2">
-                        <gradient-line-chart chart-id="ig-chart-line" />
+                  <template v-if="facebookAccount && instagramAccount">
+                    <div class="row">
+                      <div class="col-xl-3 col-md-6 col-12">
+                        <card
+                          title="Followers"
+                          value="22,000"
+                          :percentage="stats.money.percentage"
+                          :detail="stats.money.detail"
+                          custom-bg-color="bg-primary"
+                          custom-text-color="text-white"
+                        ></card>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-12">
+                        <card
+                          title="Profile Views"
+                          value="220"
+                          :percentage="stats.users.percentage"
+                          :detail="stats.users.detail"
+                          custom-bg-color="bg-primary"
+                          custom-text-color="text-white"
+                        ></card>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-12">
+                        <card
+                          title="Impressions"
+                          value="22"
+                          :percentage="stats.clients.percentage"
+                          :percentageColor="stats.clients.percentageColor"
+                          :detail="stats.clients.detail"
+                          custom-bg-color="bg-primary"
+                          custom-text-color="text-white"
+                        ></card>
+                      </div>
+                      <div class="col-xl-3 col-md-6 col-12">
+                        <card
+                          title="Avg Engagement Rate"
+                          value="22%"
+                          :percentage="stats.sales.percentage"
+                          :detail="stats.sales.detail"
+                          custom-bg-color="bg-primary"
+                          custom-text-color="text-white"
+                        ></card>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="card z-index-2">
-                        <consumption-room-chart chart-id="ig-chart-donut" />
+                    <div class="row mb-4">
+                      <div class="col-12">
+                        <div class="card z-index-2">
+                          <gradient-line-chart chart-id="ig-chart-line" />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card z-index-2">
+                          <consumption-room-chart chart-id="ig-chart-donut" />
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <div class="w-100 d-flex justify-content-center align-items-center" style="min-height: 200px;">
+                      <button @click="connectFacebook" class="btn btn-danger btn-sm">
+                        <span class="me-1">
+                          <i class="fab fa-instagram"></i>
+                        </span>
+                        Connect to Instagram
+                      </button>
+                    </div>
+                  </template>
                 </div>
               </div>
             </div>
@@ -239,7 +300,8 @@ import DE from "@/assets/img/icons/flags/DE.png";
 import GB from "@/assets/img/icons/flags/GB.png";
 import BR from "@/assets/img/icons/flags/BR.png";
 
-import { facebookLogin } from "@/assets/js/loginHelper.js";
+import { facebookLogin as fb } from "@/assets/js/loginHelper.js";
+import axios from 'axios';
 
 export default {
   name: "dashboard-default",
@@ -310,6 +372,8 @@ export default {
           flag: BR,
         },
       },
+      facebookAccount: null,
+      instagramAccount: null,
     };
   },
   components: {
@@ -321,12 +385,44 @@ export default {
     // ConsumptionDayChart
   },
   methods: {
-    getFBLoginStatus() {
-      facebookLogin.getLoginStatus();
-    },
     connectFacebook() {
-      facebookLogin.login();
+      fb.login().then(async (res) => {
+        this.facebookAccount = res;
+        await axios.get('https://graph.facebook.com/me/accounts', {
+          params: {
+            fields: 'instagram_business_account{id,name,username,profile_picture_url}',
+            access_token: window.localStorage.getItem('fbAuthToken')
+          }
+        }).then((res) => {
+          console.log(res, 'res req API');
+          if (res.status === 200) {
+            this.instagramAccount = res.data.data[0].instagram_business_account
+          }
+        });
+      });
+    },
+    logoutFacebook() {
+      fb.logout().then(() => {
+        this.facebookAccount = null;
+      });
+    },
+    getInstagramAccount() {
+      axios.get('https://graph.facebook.com/me/accounts', {
+        params: {
+          fields: 'instagram_business_account{id,name,username,profile_picture_url}',
+          access_token: 'EAADwUiZBZALdEBO7MKe3Py26bWaJSvoW33ZCmXfIfgdZBOt2aYZCC7aGSTYPZBZAJLLh1bWm7WLXgrNOUkVUaIzbT7cBEWIK1bjxSEw7TGiMtmUKjWQnZBzZA1r9i8KbM0O7FZBSPeF6BQ0enX9TS2I1pkyZAcbAr6TArmvFBDm8KXJZCg6DlIDbhQcJwH7dqnKZBb7ZCSHQ1KdjZB49nRbEk6eXqgJCUWRE24ZD'
+        }
+      })
     }
+  },
+  created() {
+    this.facebookAccount = JSON.parse(window.localStorage.getItem('fbAccount'));
   }
 };
 </script>
+
+<style>
+ul.dropdown-menu::before {
+  content: '' !important;
+}
+</style>
