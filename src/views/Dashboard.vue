@@ -6,45 +6,6 @@
           <div class="col-12 col-md-4 mb-4 mb-md-0">
             <div class="sticky-top top-3">
               <profile-card class="mb-3" />
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="fs-6">
-                    Connect your account
-                  </h5>
-                  <div class="d-flex align-items-center flex-wrap gap-2">
-                    <div class="dropdown">
-                      <button data-bs-toggle="dropdown" aria-expanded="false" id="ig-btn" class="btn btn-icon-only btn-danger mb-0">
-                        <span>
-                          <i class="fab fa-instagram"></i>
-                        </span>
-                      </button>
-                      <ul class="dropdown-menu border border-secondary">
-                        <template v-if="facebookAccount">
-                          <li>
-                            <h6 class="dropdown-header" style="-webkit-line-clamp: 1;">
-                              Account Name
-                            </h6>
-                          </li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li>
-                            <button @click="logoutFacebook" href="#" class="dropdown-item">Disconnect</button>
-                          </li>
-                        </template>
-                        <template v-else>
-                          <li>
-                            <button @click="connectFacebook" class="dropdown-item">Connect Account</button>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
-                    <button @click="logoutFacebook" id="yt-btn" href="#" class="btn btn-icon-only btn-danger mb-0">
-                      <span>
-                        <i class="fab fa-youtube"></i>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div class="col-12 col-md-8">
@@ -91,19 +52,15 @@
                       <div class="col-xl-3 col-md-6 col-12">
                         <card
                           title="Followers"
-                          value="22,000"
-                          :percentage="stats.money.percentage"
-                          :detail="stats.money.detail"
+                          :value="instagramAccount.followers_count"
                           custom-bg-color="bg-primary"
                           custom-text-color="text-white"
                         ></card>
                       </div>
                       <div class="col-xl-3 col-md-6 col-12">
                         <card
-                          title="Profile Views"
-                          value="220"
-                          :percentage="stats.users.percentage"
-                          :detail="stats.users.detail"
+                          title="Following"
+                          :value="instagramAccount.follows_count"
                           custom-bg-color="bg-primary"
                           custom-text-color="text-white"
                         ></card>
@@ -301,6 +258,7 @@ import GB from "@/assets/img/icons/flags/GB.png";
 import BR from "@/assets/img/icons/flags/BR.png";
 
 import { facebookLogin as fb } from "@/assets/js/loginHelper.js";
+import { instagramApi as ig } from "@/assets/js/platformHelper.js";
 import axios from 'axios';
 
 export default {
@@ -386,24 +344,20 @@ export default {
   },
   methods: {
     connectFacebook() {
-      fb.login().then(async (res) => {
+      fb.login().then((res) => {
         this.facebookAccount = res;
-        await axios.get('https://graph.facebook.com/me/accounts', {
-          params: {
-            fields: 'instagram_business_account{id,name,username,profile_picture_url}',
-            access_token: window.localStorage.getItem('fbAuthToken')
-          }
-        }).then((res) => {
-          console.log(res, 'res req API');
-          if (res.status === 200) {
-            this.instagramAccount = res.data.data[0].instagram_business_account
-          }
+      }).then(() => {
+        ig.getIgAccounts().then((res) => {
+          ig.getUserData(res.id).then((_data) => {
+            this.instagramAccount = _data
+          });
         });
       });
     },
     logoutFacebook() {
       fb.logout().then(() => {
         this.facebookAccount = null;
+        this.instagramAccount = null;
       });
     },
     getInstagramAccount() {
@@ -417,6 +371,7 @@ export default {
   },
   created() {
     this.facebookAccount = JSON.parse(window.localStorage.getItem('fbAccount'));
+    this.instagramAccount = JSON.parse(window.localStorage.getItem('igAccount'));
   }
 };
 </script>

@@ -2,11 +2,11 @@ export const facebookLogin = {
   login: () => {
     return new Promise((resolve) => {
       window.FB.getLoginStatus((res) => {
-        console.log(res, 'FB.getLoginStatus');
         if (res.status !== 'connected') {
           window.FB.login(function(response) {
             if (response.authResponse) {
-              localStorage.setItem('fbAuthToken', response.authResponse.accessToken)
+              localStorage.setItem('fbAuthToken', response.authResponse.accessToken);
+              localStorage.setItem('fbLoggedIn', true);
               window.FB.api('/me', {fields: 'name, email'}, function(_response) {
                 localStorage.setItem('fbAccount', JSON.stringify(_response));
                 resolve(_response);
@@ -25,6 +25,8 @@ export const facebookLogin = {
       window.FB.logout(function() {
         localStorage.setItem('fbAuthToken', '');
         localStorage.setItem('fbAccount', null);
+        localStorage.setItem('fbLoggedIn', false);
+        localStorage.setItem('igAccount', null);
         resolve('ok');
       });
     })

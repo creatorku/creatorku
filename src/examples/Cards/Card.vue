@@ -11,14 +11,14 @@
         <div :class="`${contentClass} ${customTextColor}`">
           <div class="numbers" v-if="this.$store.state.isRTL">
             <p class="mb-0 text-sm text-uppercase font-weight-bold">{{ title }}</p>
-            <h5 class="font-weight-bolder">{{ value }}
+            <h5 class="font-weight-bolder">{{ numeral(value).format('0,0') }}
             <span class="text-sm"  :class="percentageColor">{{ percentage }}</span> 
             <span class="font-weight-light text-sm"> {{detail}}</span>
             </h5>
           </div>
           <div class="numbers" v-else>
             <p class="mb-0 text-sm text-uppercase font-weight-bold">{{ title }}</p>
-            <h5 :class="`font-weight-bolder ${customTextColor}`">{{ value }}</h5>
+            <h5 :class="`font-weight-bolder ${customTextColor} d-block mb-0`">{{ value }}</h5>
             <span class="text-sm"  :class="percentageColor">{{ percentage }}</span> 
             {{detail}}
           </div>
@@ -29,11 +29,14 @@
 </template>
 
 <script>
+import numeral from 'numeral';
+
 export default {
   name: "card",
   data() {
     return {
       reverseDirection: "flex-row-reverse justify-content-between",
+      numeral: numeral
     };
   },
   props: {
@@ -44,7 +47,6 @@ export default {
     },
     detail: {
       type: String,
-      required: true,
     },
     titleColor: {
       type: String,
